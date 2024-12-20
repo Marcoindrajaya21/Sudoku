@@ -2,7 +2,7 @@
  * ES234317-Algorithm and Data Structures
  * Semester Ganjil, 2024/2025
  * Group Capstone Project
- * Group #17
+ * Group #6
  * 1 - 5026231019 - Nathaniel Lado Hadi Winata
  * 2 - 5026231031 - Marco Indrajaya
  */
@@ -22,13 +22,13 @@ public class Cell extends JTextField {
 
     // Define named constants for JTextField's colors and fonts
     //  to be chosen based on CellStatus
-    public static final Color BG_GIVEN = new Color(240, 240, 240); // RGB
-    public static final Color FG_GIVEN = Color.BLACK;
-    public static final Color FG_NOT_GIVEN = Color.GRAY;
-    public static final Color BG_TO_GUESS  = Color.BLUE;
-    public static final Color BG_CORRECT_GUESS = new Color(0, 216, 0);
-    public static final Color BG_WRONG_GUESS   = new Color(216, 0, 0);
-    public static final Font FONT_NUMBERS = new Font("SansSerif ", Font.PLAIN, 20);
+    public static final Color BG_GIVEN = new Color(30, 30, 30); // Dark Gray for given cells
+    public static final Color FG_GIVEN = new Color(255, 255, 255); // White for readability
+    public static final Color FG_NOT_GIVEN = new Color(200, 200, 200); // Light Gray for not given cells
+    public static final Color BG_TO_GUESS = new Color(50, 50, 150); // Dark Blue for cells to guess
+    public static final Color BG_CORRECT_GUESS = new Color(0, 150, 0); // Green for correct guesses
+    public static final Color BG_WRONG_GUESS = new Color(255, 0, 0); // Red for wrong guesses
+    public static final Font FONT_NUMBERS = new Font("Roboto", Font.BOLD, 24); // Modern Bold Font
 
     // Define properties (package-visible)
     /** The row and column number [0-8] of this cell */
