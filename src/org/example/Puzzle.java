@@ -1,8 +1,7 @@
 package org.example;
 
-/**
- * The Sudoku number puzzle to be solved
- */
+import java.util.Random;
+
 public class Puzzle {
     // All variables have package access
     // The numbers on the puzzle
@@ -10,15 +9,30 @@ public class Puzzle {
     // The clues - isGiven (no need to guess) or need to guess
     boolean[][] isGiven = new boolean[org.example.SudokuConstants.GRID_SIZE][org.example.SudokuConstants.GRID_SIZE];
 
+    // Enum for difficulty levels
+    public enum Difficulty {
+        EASY(36),   // 36 cells given
+        MEDIUM(30), // 30 cells given
+        HARD(24);   // 24 cells given
+
+        private final int cellsToGuess;
+
+        Difficulty(int cellsToGuess) {
+            this.cellsToGuess = cellsToGuess;
+        }
+
+        public int getCellsToGuess() {
+            return cellsToGuess;
+        }
+    }
+
     // Constructor
     public Puzzle() {
         super();
     }
 
-    // Generate a new puzzle given the number of cells to be guessed, which can be used
-    //  to control the difficulty level.
-    // This method shall set (or update) the arrays numbers and isGiven
-    public void newPuzzle(int cellsToGuess) {
+    // Generate a new puzzle given the difficulty level
+    public void newPuzzle(int difficulty) {
         // I hardcode a puzzle here for illustration and testing.
         int[][] hardcodedNumbers =
                 {{5, 3, 4, 6, 7, 8, 9, 1, 2},
@@ -38,22 +52,29 @@ public class Puzzle {
             }
         }
 
-        // Need to use input parameter cellsToGuess!
-        // Hardcoded for testing, only 2 cells of "8" is NOT GIVEN
-        boolean[][] hardcodedIsGiven =
-                {{true, true, true, true, true, false, true, true, true},
-                        {true, true, true, true, true, true, true, true, false},
-                        {true, true, true, true, true, true, true, true, true},
-                        {true, true, true, true, true, true, true, true, true},
-                        {true, true, true, true, true, true, true, true, true},
-                        {true, true, true, true, true, true, true, true, true},
-                        {true, true, true, true, true, true, true, true, true},
-                        {true, true, true, true, true, true, true, true, true},
-                        {true, true, true, true, true, true, true, true, true}};
-
-        // Copy from hardcodedIsGiven into array "isGiven"
+        // Initialize all cells as given
         for (int row = 0; row < org.example.SudokuConstants.GRID_SIZE; ++row) {
-            System.arraycopy(hardcodedIsGiven[row], 0, isGiven[row], 0, org.example.SudokuConstants.GRID_SIZE);
+            for (int col = 0; col < org.example.SudokuConstants.GRID_SIZE; ++col) {
+                isGiven[row][col] = true;
+            }
+        }
+
+        // Get the number of cells to guess based on the difficulty level
+        int cellsToGuess = difficulty;
+        int cellsToRemove = org.example.SudokuConstants.GRID_SIZE * org.example.SudokuConstants.GRID_SIZE - cellsToGuess;
+
+        // Randomly select cells to be set as not given based on cellsToRemove
+        Random random = new Random();
+
+        while (cellsToRemove > 0) {
+            int row = random.nextInt(org.example.SudokuConstants.GRID_SIZE);
+            int col = random.nextInt(org.example.SudokuConstants.GRID_SIZE);
+
+            // Only remove if it is currently given
+            if (isGiven[row][col]) {
+                isGiven[row][col] = false;
+                cellsToRemove--;
+            }
         }
     }
 }
